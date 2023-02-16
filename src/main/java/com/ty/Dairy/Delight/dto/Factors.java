@@ -12,5 +12,6 @@ public class Factors {
 	private int id;
 	private float fat;
 	private float SNF;
+	private float Liters;
 
 }
