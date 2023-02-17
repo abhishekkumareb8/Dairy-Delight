@@ -1,5 +1,6 @@
 package com.ty.Dairy.Delight.service;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ty.Dairy.Delight.dao.FactorsDao;
 import com.ty.Dairy.Delight.dto.Factors;
+import com.ty.Dairy.Delight.exception.NoSuchIdFoundException;
 import com.ty.Dairy.Delight.util.ResponseStructure;
 
 @Service
@@ -19,6 +21,7 @@ public class FactorsService {
 
 	public ResponseEntity<ResponseStructure<Factors>> saveFactorsService(Factors factor) {
 		ResponseStructure<Factors> responseStructure = new ResponseStructure<Factors>();
+		factor.setDate(new Date());
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setMessage("Factors Creation");
 		responseStructure.setData(dao.saveFactors(factor));
@@ -30,11 +33,12 @@ public class FactorsService {
 		Optional<Factors> optional = dao.findFactorsById(factorid);
 		if (optional.isPresent()) {
 			factor.setId(factorid);
+			factor.setDate(new Date());
 			responseStructure.setStatus(HttpStatus.ACCEPTED.value());
 			responseStructure.setMessage("Factors Updation");
 			responseStructure.setData(dao.updateFactors(factor));
 		} else {
-			return null;
+			throw new NoSuchIdFoundException(" No Id Found ");
 		}
 		return new ResponseEntity<ResponseStructure<Factors>>(responseStructure, HttpStatus.ACCEPTED);
 	}
@@ -47,7 +51,7 @@ public class FactorsService {
 			responseStructure.setMessage("Found factors");
 			responseStructure.setData(optional.get());
 		} else {
-			return null;
+			 throw new NoSuchIdFoundException(" No Id Found");
 		}
 		return new ResponseEntity<ResponseStructure<Factors>>(responseStructure, HttpStatus.FOUND);
 	}
@@ -56,11 +60,12 @@ public class FactorsService {
 		ResponseStructure<Factors> responseStructure = new ResponseStructure<Factors>();
 		Optional<Factors> optional = dao.findFactorsById(factorid);
 		if (optional.isPresent()) {
+			dao.deleteFactors(optional.get());
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("Factor Deleted");
 			responseStructure.setData(optional.get());
 		} else {
-			return null;
+			throw new NoSuchIdFoundException("No Id Found");
 		}
 		return new ResponseEntity<ResponseStructure<Factors>>(responseStructure, HttpStatus.OK);
 	}
