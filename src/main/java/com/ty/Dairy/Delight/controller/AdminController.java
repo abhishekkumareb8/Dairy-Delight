@@ -28,7 +28,7 @@ public class AdminController {
 
 	@PutMapping
 	public ResponseEntity<ResponseStructure<Admin>> updateAdmin(@RequestBody Admin admin, @RequestParam int admin_id) {
-		return adminService.updateAdmin(admin ,admin_id);
+		return adminService.updateAdmin(admin, admin_id);
 	}
 
 	@GetMapping
@@ -38,6 +38,6 @@ public class AdminController {
 
 	@DeleteMapping
 	public ResponseEntity<ResponseStructure<Admin>> deleteAdmin(@RequestParam int admin_id) {
-		return adminService.deleteAdmin(admin_id);
+		return adminService.deleteAdmin(admin_id);//
 	}
 }
