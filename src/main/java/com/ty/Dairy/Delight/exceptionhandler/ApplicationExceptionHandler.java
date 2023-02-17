@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.ty.Dairy.Delight.exception.NoSuchIdFoundException;
+import com.ty.Dairy.Delight.exception.UnAuthorisedException;
 import com.ty.Dairy.Delight.exception.UnableToUpdateException;
 import com.ty.Dairy.Delight.util.ResponseStructure;
 
@@ -61,5 +62,13 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
 		responseStructure.setData(exception.getMessage());
 		return new ResponseEntity<ResponseStructure<?>>(responseStructure, HttpStatus.NOT_FOUND);
 
+	}
+	@ExceptionHandler(UnAuthorisedException.class)
+	public ResponseEntity<ResponseStructure<String>> unauthorisedException(UnAuthorisedException e){
+		ResponseStructure<String> r=new ResponseStructure<String>();
+		r.setStatus(HttpStatus.NOT_FOUND.value());
+		r.setMessage("UnAuthorised User");
+		r.setData(e.getMessage());
+		return new ResponseEntity<ResponseStructure<String>>(r,HttpStatus.NOT_FOUND);		
 	}
 }
