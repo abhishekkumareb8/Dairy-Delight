@@ -26,8 +26,8 @@ public class FactorsDao {
 		return repo.findById(id);
 	}
 
-	public void deleteFactors(int id) {
-		repo.deleteById(id);
+	public void deleteFactors(Factors factors) {
+		repo.delete(factors);
 	}
 
 }
