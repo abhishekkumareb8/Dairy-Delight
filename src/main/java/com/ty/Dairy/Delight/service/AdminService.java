@@ -41,7 +41,7 @@ public class AdminService {
 			admin.setAdmin_id(admin_id);
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("Updated");
-			responseStructure.setData(adminDao.updateAdmin(admin));
+			responseStructure.setData(optional.get());
 			return responseEntity;
 		}
 

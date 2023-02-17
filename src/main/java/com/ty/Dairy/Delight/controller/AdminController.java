@@ -28,7 +28,7 @@ public class AdminController {
 
 	@PutMapping
 	public ResponseEntity<ResponseStructure<Admin>> updateAdmin(@RequestBody Admin admin, @RequestParam int admin_id) {
-		return adminService.saveAdmin(admin);
+		return adminService.updateAdmin(admin ,admin_id);
 	}
 
 	@GetMapping
