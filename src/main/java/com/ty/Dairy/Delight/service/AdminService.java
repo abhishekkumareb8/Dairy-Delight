@@ -23,7 +23,6 @@ public class AdminService {
 			ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
 			ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(
 					responseStructure, HttpStatus.OK);
-
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setMessage("Created");
 			responseStructure.setData(adminDao.saveAdmin(admin));
@@ -41,7 +40,7 @@ public class AdminService {
 			admin.setAdmin_id(admin_id);
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("Updated");
-			responseStructure.setData(optional.get());
+			responseStructure.setData(adminDao.updateAdmin(admin));
 			return responseEntity;
 		}
 
@@ -76,5 +75,5 @@ public class AdminService {
 		}
 		return responseEntity;
 	}
-
+//
 }

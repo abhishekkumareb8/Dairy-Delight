@@ -29,5 +29,5 @@ public class AdminDao {
 	public void deleteAdmin(Admin admin) {
 		adminRepository.delete(admin);
 	}
-
+//
 }
