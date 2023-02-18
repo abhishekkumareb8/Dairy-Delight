@@ -29,7 +29,7 @@ public class Applicationconfig {
 
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("com.ty.Dairy.Delight"))
-				.build();
+				.build().apiInfo(apiInfo);
 
 	}
 }
