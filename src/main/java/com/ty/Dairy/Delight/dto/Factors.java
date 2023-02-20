@@ -1,7 +1,12 @@
 package com.ty.Dairy.Delight.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import java.util.Date;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import lombok.Data;
 
 @Entity
@@ -9,9 +14,11 @@ import lombok.Data;
 public class Factors {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private float fat;
-	private float SNF;
-	private float Liters;
+	private float  fat;
+	private float snf;
+	private float liters;
+	private Date date;
 
 }
