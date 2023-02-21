@@ -1,6 +1,7 @@
 package com.ty.Dairy.Delight.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ty.Dairy.Delight.dao.FactorsDao;
+import com.ty.Dairy.Delight.dao.VendorDao;
 import com.ty.Dairy.Delight.dto.Factors;
+import com.ty.Dairy.Delight.dto.Vendor;
 import com.ty.Dairy.Delight.exception.NoSuchIdFoundException;
 import com.ty.Dairy.Delight.util.ResponseStructure;
 
@@ -18,14 +21,25 @@ public class FactorsService {
 
 	@Autowired
 	FactorsDao dao;
+	
+	@Autowired
+	private VendorDao vendorDao;
 
-	public ResponseEntity<ResponseStructure<Factors>> saveFactorsService(Factors factor) {
+	public ResponseEntity<ResponseStructure<Factors>> saveFactorsService(Factors factor, int id) {
+		Vendor vendor= vendorDao.getVendor(id);
 		ResponseStructure<Factors> responseStructure = new ResponseStructure<Factors>();
+		if(vendor!=null) {
+		List<Factors>list=vendor.getFactors();
+		list.add(factor);
+		vendor.setFactors(list);
 		factor.setDate(new Date());
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setMessage("Factors Creation");
 		responseStructure.setData(dao.saveFactors(factor));
 		return new ResponseEntity<ResponseStructure<Factors>>(responseStructure, HttpStatus.CREATED);
+		}else {
+			throw new NoSuchIdFoundException();
+		}
 	}
 
 	public ResponseEntity<ResponseStructure<Factors>> updateFactorsService(Factors factor, int factorid) {

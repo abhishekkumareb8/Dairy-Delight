@@ -32,13 +32,13 @@ public class VendorService {
 
 	// GET VENDOR DETAILS
 	public ResponseEntity<ResponseStructure<Vendor>> getVendor(int id) {
-		Optional<Vendor> optional = dao.getVendor(id);
+		Vendor optional = dao.getVendor(id);
 		ResponseStructure<Vendor> responseStructure = new ResponseStructure<Vendor>();
 		ResponseEntity<ResponseStructure<Vendor>> responseEntity = new ResponseEntity<ResponseStructure<Vendor>>(
 				responseStructure, HttpStatus.OK);
-		if (optional.isPresent()) {
+		if (optional!=null) {
 			responseStructure.setStatus(HttpStatus.OK.value());
-			responseStructure.setData(dao.getVendor(id).get());
+			responseStructure.setData(dao.getVendor(id));
 			responseStructure.setMessage("User found");
 			return responseEntity;
 		} else {
@@ -48,11 +48,11 @@ public class VendorService {
 	
 	//UPDATD VENDOR
 	public ResponseEntity<ResponseStructure<Vendor>> updateVendor(Vendor vendor, int id) {
-		Optional<Vendor> optional = dao.getVendor(id);
+		Vendor optional = dao.getVendor(id);
 		ResponseStructure<Vendor> responseStructure = new ResponseStructure<Vendor>();
 		ResponseEntity<ResponseStructure<Vendor>> responseEntity = new ResponseEntity<ResponseStructure<Vendor>>(
 				responseStructure, HttpStatus.OK);
-		if(optional.isPresent()) {
+		if(optional!=null) {
 			vendor.setId(id);
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setData(dao.updateVendor(vendor));
@@ -67,15 +67,15 @@ public class VendorService {
 	//DELETE VENDOR
 	
 	public ResponseEntity<ResponseStructure<Vendor>> deleteVendor(int id) {
-		Optional<Vendor> optional = dao.getVendor(id);
+		Vendor optional = dao.getVendor(id);
 		ResponseStructure<Vendor> responseStructure = new ResponseStructure<Vendor>();
 		ResponseEntity<ResponseStructure<Vendor>> responseEntity = new ResponseEntity<ResponseStructure<Vendor>>(
 				responseStructure, HttpStatus.OK);
-		if (optional.isPresent()) {
-			dao.deleteVendor(optional.get());
+		if (optional!=null) {
+			dao.deleteVendor(optional);
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("Vendor Deleted as per Given Id");
-			responseStructure.setData(optional.get());
+			responseStructure.setData(optional);
 			return responseEntity;
 		} else {
 			throw new NoSuchIdFoundException("No User found to delete for given id");
