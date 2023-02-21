@@ -24,8 +24,8 @@ public class FactorsController {
 	FactorsService service;
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseStructure<Factors>> saveFactors(@RequestBody Factors factors) {
-		return service.saveFactorsService(factors);
+	public ResponseEntity<ResponseStructure<Factors>> saveFactors(@RequestBody Factors factors, @RequestParam int id) {
+		return service.saveFactorsService(factors, id);
 	}
 
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

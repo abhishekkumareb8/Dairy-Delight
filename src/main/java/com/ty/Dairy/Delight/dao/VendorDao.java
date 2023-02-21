@@ -18,8 +18,12 @@ public class VendorDao {
 		return repository.save(vendor);
 	}
 	
-	public Optional<Vendor> getVendor(int id){
-		return repository.findById(id);
+	public Vendor getVendor(int id){
+		Optional<Vendor>optional=repository.findById(id);
+		if(optional.isPresent()) {
+			return optional.get();
+		}
+		return null;
 	}
 	
 	public Vendor updateVendor(Vendor vendor) {
