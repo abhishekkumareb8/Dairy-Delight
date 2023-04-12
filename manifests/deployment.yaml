@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: testaks
+  name: testaks
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testaks
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: testaks
+    spec:
+      containers:
+      - image: demoaksacr2.azurecr.io/testaks
+        name: testaks
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}
